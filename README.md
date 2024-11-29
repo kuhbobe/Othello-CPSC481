@@ -1,4 +1,4 @@
-# CPSC481-OthelloAI
+# CPSC481-Project-OthelloAI
 
 
 Install Pygame
