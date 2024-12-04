@@ -1,9 +1,4 @@
 # CPSC481-Project-OthelloAI
 
-
-Install Pygame
-py -m pip install -U pygame --user
-
-
-Run Main
+Run main, will install pygame if not installed
 py main.py

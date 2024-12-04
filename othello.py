@@ -1,6 +1,6 @@
 import pygame
-from player import Token, Grid
-from computerAi import ComputerPlayer
+from player import Grid
+from computerai import ComputerPlayer
 
 class Othello:
     def __init__(self):

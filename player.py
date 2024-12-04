@@ -28,12 +28,26 @@ def loadImages(path, size):
 
 
 
-def evaluateBoard(grid, player):
+def evaluate_board(board):
+    weights = [
+        [100, -20, 10,  5,  5, 10, -20, 100],
+        [-20, -50, -2, -2, -2, -2, -50, -20],
+        [10,  -2,   0,  0,  0,  0,  -2,  10],
+        [5,   -2,   0,  0,  0,  0,  -2,   5],
+        [5,   -2,   0,  0,  0,  0,  -2,   5],
+        [10,  -2,   0,  0,  0,  0,  -2,  10],
+        [-20, -50, -2, -2, -2, -2, -50, -20],
+        [100, -20, 10,  5,  5, 10, -20, 100],
+    ]
     score = 0
-    for y, row in enumerate(grid):
-        for x, col in enumerate(row):
-            score -= col
+    for i in range(8):
+        for j in range(8):
+            if board[i][j] == 1:  # AI
+                score += weights[i][j]
+            elif board[i][j] == -1:  # Opponent
+                score -= weights[i][j]
     return score
+
 
 class Token:
     GRID_SIZE = 80  # Grid size in pixels
