@@ -140,10 +140,10 @@ class Grid:
             for x in range(columns):
                 line.append(0)
             grid.append(line)
-        self.insertToken(grid, 1, 3, 3)
-        self.insertToken(grid, -1, 3, 4)
-        self.insertToken(grid, 1, 4, 4)
-        self.insertToken(grid, -1, 4, 3)
+        self.insertToken(grid, -1, 3, 3)
+        self.insertToken(grid, 1, 3, 4)
+        self.insertToken(grid, -1, 4, 4)
+        self.insertToken(grid, 1, 4, 3)
 
         return grid
 

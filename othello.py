@@ -74,12 +74,13 @@ class Othello:
             self.gameOver = True
 
     def aiMove(self):
+        difficulty = 5
         new_time = pygame.time.get_ticks()
         if new_time - self.time >= 100:
             if not self.grid.findAvailMoves(self.grid.gridLogic, self.currentPlayer):
                 self.gameOver = True
                 return
-            cell, score = self.computerPlayer.computerHard(self.grid.gridLogic, 5, -64, 64, self.player2)
+            cell, score = self.computerPlayer.computerHard(self.grid.gridLogic, difficulty, -64, 64, self.player2)
             self.grid.insertToken(self.grid.gridLogic, self.currentPlayer, cell[0], cell[1])
             self.tokenFlip(cell[0], cell[1])
             self.currentPlayer *= -1

@@ -1,66 +1,55 @@
-# ComputerAI.py
-import copy
-
 class ComputerPlayer:
     def __init__(self, gridObject):
         self.grid = gridObject
 
     def computerHard(self, grid, depth, alpha, beta, player):
+        """
+        Minimax with Alpha-Beta Pruning for optimal move selection.
+        """
         availMoves = self.grid.findAvailMoves(grid, player)
-
         if depth == 0 or not availMoves:
             return None, self.calculateTileScore(grid, player)
 
         bestMove = None
-        if player < 0:
-            bestScore = -64
-        else:
-            bestScore = 64
+        bestScore = float('-inf') if player < 0 else float('inf')
 
         for move in availMoves:
             x, y = move
             swappableTiles = self.grid.swappableTiles(x, y, grid, player)
-            flippedCount = len(swappableTiles)  # Count tiles flipped for scoring
 
-            # Make the move
-            grid[x][y] = player
-            for tile in swappableTiles:
-                grid[tile[0]][tile[1]] = player
-
-            # Recursively evaluate the move
+            # Simulate the move
+            self.makeMove(grid, x, y, swappableTiles, player)
             _, score = self.computerHard(grid, depth - 1, alpha, beta, -player)
+            self.undoMove(grid, x, y, swappableTiles, player)
 
-            # Add flippedCount to the score (heuristic-based scoring)
-            if player < 0:
-                score += flippedCount
-            else:
-                score -= flippedCount
+            score += len(swappableTiles) if player < 0 else -len(swappableTiles)
 
-            # Undo the move
-            grid[x][y] = 0
-            for tile in swappableTiles:
-                grid[tile[0]][tile[1]] = -player
-
-            # Update the best score and move
-            if player < 0:
+            # Update best score and move
+            if player < 0:  # Maximizing player
                 if score > bestScore:
                     bestScore = score
                     bestMove = move
                 alpha = max(alpha, bestScore)
-            else:
+            else:  # Minimizing player
                 if score < bestScore:
                     bestScore = score
                     bestMove = move
                 beta = min(beta, bestScore)
 
-            # Alpha-beta pruning
             if beta <= alpha:
                 break
 
         return bestMove, bestScore
 
     def calculateTileScore(self, grid, player):
-        playerTiles = sum(row.count(player) for row in grid)
-        opponentTiles = sum(row.count(-player) for row in grid)
-        return playerTiles - opponentTiles
+        return sum(row.count(player) for row in grid) - sum(row.count(-player) for row in grid)
 
+    def makeMove(self, grid, x, y, swappableTiles, player):
+        grid[x][y] = player
+        for tile in swappableTiles:
+            grid[tile[0]][tile[1]] = player
+
+    def undoMove(self, grid, x, y, swappableTiles, player):
+        grid[x][y] = 0
+        for tile in swappableTiles:
+            grid[tile[0]][tile[1]] = -player
