@@ -13,6 +13,8 @@ class Othello:
         self.player2 = -1
         self.currentPlayer = self.player1
         self.time = 0
+        self.aiMoveCount = 0
+        self.totalAiMoveTime = 0
         self.rows, self.columns = 8, 8
         self.gameOver = False
         self.grid = Grid(self.rows, self.columns, (80, 80), self)
@@ -86,6 +88,9 @@ class Othello:
             # Render "AI is thinking..." message
             self.aiTextDisplay()
 
+            # Record start time
+            start_time = pygame.time.get_ticks()
+
             # AI's move logic and Insert token at the AI's chosen position
             cell, score = self.computerPlayer.computerHard(self.grid.gridLogic, difficulty, -64, 64, self.player2)
             self.grid.insertToken(self.grid.gridLogic, self.currentPlayer, cell[0], cell[1])
@@ -93,6 +98,18 @@ class Othello:
             # Switch to the next player after AI's move
             self.currentPlayer *= -1
             self.time = pygame.time.get_ticks()
+
+            # Record end time and calculate move duration
+            end_time = pygame.time.get_ticks()
+            move_duration = end_time - start_time
+            self.totalAiMoveTime += move_duration
+            self.aiMoveCount += 1
+
+            # Calculate and print average move time
+            average_move_time = self.totalAiMoveTime / self.aiMoveCount
+            print(f"Total moves made by AI: {self.aiMoveCount}")
+            print(f"Average time per AI move: {average_move_time:.2f} ms")
+
             # Set flag to indicate AI is done thinking
             pygame.display.update()  
 
