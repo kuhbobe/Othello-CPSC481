@@ -7,6 +7,7 @@ class Othello:
         pygame.init()
         self.screen = pygame.display.set_mode((800, 800))
         pygame.display.set_caption('Othello')
+        self.font = pygame.font.SysFont('Arial', 30, True, False)
         
         self.player1 = 1
         self.player2 = -1
@@ -80,11 +81,27 @@ class Othello:
             if not self.grid.findAvailMoves(self.grid.gridLogic, self.currentPlayer):
                 self.gameOver = True
                 return
+            self.isThinking = True
+            pygame.display.update()  
+            # Render "AI is thinking..." message
+            thinking_text = self.font.render('AI is thinking...', True, (255, 255, 255))
+            self.screen.blit(thinking_text, (320, 740))  # Position of the message on the screen
+            pygame.display.update()  
+
+            # AI's move logic
             cell, score = self.computerPlayer.computerHard(self.grid.gridLogic, difficulty, -64, 64, self.player2)
+            
+            # Insert token at the AI's chosen position
             self.grid.insertToken(self.grid.gridLogic, self.currentPlayer, cell[0], cell[1])
             self.tokenFlip(cell[0], cell[1])
+
+            # Switch to the next player after AI's move
             self.currentPlayer *= -1
-            self.time = new_time
+            self.time = pygame.time.get_ticks()
+
+            # Set flag to indicate AI is done thinking
+            self.isThinking = False
+            pygame.display.update()  
 
     def draw(self):
         self.screen.fill((0, 0, 0))
