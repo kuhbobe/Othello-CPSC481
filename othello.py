@@ -65,6 +65,9 @@ class Othello:
         if 320 <= x <= 480 and 400 <= y <= 480:
             self.grid.newGame()
             self.gameOver = False
+            # Reset AI move count and total AI move time
+            self.aiMoveCount = 0
+            self.totalAiMoveTime = 0
 
     def update(self):
         if self.currentPlayer == self.player2:
