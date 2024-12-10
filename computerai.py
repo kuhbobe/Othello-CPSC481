@@ -57,9 +57,9 @@ class ComputerPlayer:
         for x in range(8):
             for y in range(8):
                 if grid[x][y] == player:
-                    score += self.positional_weights[x][y]  # Add weight for player's position
+                    score += self.positional_weights[x][y]  
                 elif grid[x][y] == opponent:
-                    score -= self.positional_weights[x][y]  # Subtract weight for opponent's position
+                    score -= self.positional_weights[x][y]  
 
         return score
 

@@ -93,7 +93,7 @@ class Grid:
         self.gridLogic = self.regenGrid(self.y, self.x)
         self.player1Score = 0
         self.player2Score = 0
-        self.font = pygame.font.SysFont('Arial', 20, True, False)
+        self.font = pygame.font.SysFont('Verdana', 20, True, False)
 
 
     def newGame(self):

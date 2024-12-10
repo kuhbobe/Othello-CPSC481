@@ -10,7 +10,7 @@ def install_dependencies():
         subprocess.check_call([sys.executable, "-m", "pip", "install", "pygame"])
 
 if __name__ == '__main__':
-    # Install dependencies if not already installed
+    
     install_dependencies()
 
     # Import Othello after ensuring dependencies

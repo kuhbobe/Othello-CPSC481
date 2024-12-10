@@ -7,7 +7,7 @@ class Othello:
         pygame.init()
         self.screen = pygame.display.set_mode((800, 800))
         pygame.display.set_caption('Othello')
-        self.font = pygame.font.SysFont('Arial', 30, True, False)
+        self.font = pygame.font.SysFont('Verdana', 20, True, False)
         
         self.player1 = 1
         self.player2 = -1
@@ -102,6 +102,8 @@ class Othello:
         pygame.display.update()
 
     def aiTextDisplay(self):
-        thinking_text = self.font.render('AI is thinking...', True, (255, 255, 255))
-        self.screen.blit(thinking_text, (320, 740))  # Position of the message on the screen
-        pygame.display.update()  
+        thinking_text = self.font.render('Hmmmm...', True, (255, 255, 255))
+        text_rect = thinking_text.get_rect(center=(self.screen.get_width() // 2, self.screen.get_height() - 60))
+        self.screen.blit(thinking_text, text_rect.topleft)
+        pygame.display.update()
+  
