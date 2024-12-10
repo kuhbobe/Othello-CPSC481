@@ -3,14 +3,14 @@ class ComputerPlayer:
         self.grid = gridObject
         # Positional weights for each grid position to guide AI's move choices
         self.positional_weights = [
-            [100, -20, 10, 5, 5, 10, -20, 100],  # Corners are highly weighted
+            [100, -20, 10,  5,  5, 10, -20, 100],  # Corners are highly weighted
             [-20, -50, -2, -2, -2, -2, -50, -20],
-            [10, -2, 0, 0, 0, 0, -2, 10],
-            [5, -2, 0, 0, 0, 0, -2, 5],
-            [5, -2, 0, 0, 0, 0, -2, 5],
-            [10, -2, 0, 0, 0, 0, -2, 10],
+            [ 10,  -2,  0,  0,  0,  0,  -2, 10 ],
+            [  5,  -2,  0,  0,  0,  0,  -2,  5 ],
+            [  5,  -2,  0,  0,  0,  0,  -2,  5 ],
+            [ 10,  -2,  0,  0,  0,  0,  -2, 10 ],
             [-20, -50, -2, -2, -2, -2, -50, -20],
-            [100, -20, 10, 5, 5, 10, -20, 100]
+            [100, -20, 10,  5,  5, 10, -20, 100]
         ]
 
 
