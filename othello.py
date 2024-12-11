@@ -8,7 +8,7 @@ class Othello:
         self.screen = pygame.display.set_mode((800, 800))
         pygame.display.set_caption('Othello')
         self.font = pygame.font.SysFont('Verdana', 20, True, False)
-        
+
         self.player1 = 1
         self.player2 = -1
         self.currentPlayer = self.player1
@@ -16,8 +16,14 @@ class Othello:
         self.rows, self.columns = 8, 8
         self.gameOver = False
         self.grid = Grid(self.rows, self.columns, (80, 80), self)
-        self.computerPlayer = ComputerPlayer(self.grid)
+        self.computerPlayer1 = ComputerPlayer(self.grid)
+        self.computerPlayer2 = ComputerPlayer(self.grid)
         self.RUN = True
+        self.ai_vs_ai = True  # Set this to True for AI vs AI mode
+
+        # Depth for AI players
+        self.ai1_depth = 5  # Depth for AI Player 1
+        self.ai2_depth = 5  # Depth for AI Player 2
 
     def run(self):
         while self.RUN:
@@ -65,7 +71,12 @@ class Othello:
             self.gameOver = False
 
     def update(self):
-        if self.currentPlayer == self.player2:
+        if self.gameOver:
+            return
+
+        if self.ai_vs_ai:
+            self.aiMove()  # AI plays both sides
+        elif self.currentPlayer == self.player2:
             self.aiMove()
 
         self.grid.player1Score = self.grid.calculatePlayerScore(self.player1)
@@ -75,26 +86,26 @@ class Othello:
             self.gameOver = True
 
     def aiMove(self):
-        difficulty = 5
         new_time = pygame.time.get_ticks()
         if new_time - self.time >= 100:
             if not self.grid.findAvailMoves(self.grid.gridLogic, self.currentPlayer):
                 self.gameOver = True
                 return
-            
-            pygame.display.update()  
-            # Render "AI is thinking..." message
-            self.aiTextDisplay()
 
-            # AI's move logic and Insert token at the AI's chosen position
-            cell, score = self.computerPlayer.computerHard(self.grid.gridLogic, difficulty, -64, 64, self.player2)
-            self.grid.insertToken(self.grid.gridLogic, self.currentPlayer, cell[0], cell[1])
-            self.tokenFlip(cell[0], cell[1])
-            # Switch to the next player after AI's move
+            # AI chooses move based on its depth
+            if self.currentPlayer == self.player1:
+                cell, score = self.computerPlayer1.computerHard(self.grid.gridLogic, self.ai1_depth, -64, 64, self.player1)
+            else:
+                cell, score = self.computerPlayer2.computerHard(self.grid.gridLogic, self.ai2_depth, -64, 64, self.player2)
+
+            # Execute move
+            if cell:
+                self.grid.insertToken(self.grid.gridLogic, self.currentPlayer, cell[0], cell[1])
+                self.tokenFlip(cell[0], cell[1])
+
+            # Switch to the next player
             self.currentPlayer *= -1
             self.time = pygame.time.get_ticks()
-            # Set flag to indicate AI is done thinking
-            pygame.display.update()  
 
     def draw(self):
         self.screen.fill((0, 0, 0))
