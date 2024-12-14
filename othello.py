@@ -22,7 +22,7 @@ class Othello:
         self.ai_vs_ai = True  # Set this to True for AI vs AI mode
 
         # Depth for AI players
-        self.ai1_depth = 5  # Depth for AI Player 1
+        self.ai1_depth = 5 # Depth for AI Player 1
         self.ai2_depth = 5  # Depth for AI Player 2
 
     def run(self):
