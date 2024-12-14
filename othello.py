@@ -19,7 +19,7 @@ class Othello:
         self.computerPlayer1 = ComputerPlayer(self.grid)
         self.computerPlayer2 = ComputerPlayer(self.grid)
         self.RUN = True
-        self.ai_vs_ai = True  # Set this to True for AI vs AI mode
+        self.ai_vs_ai = False  # Set this to True for AI vs AI mode
 
         # Depth for AI players
         self.ai1_depth = 5 # Depth for AI Player 1
