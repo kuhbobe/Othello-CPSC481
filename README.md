@@ -26,4 +26,13 @@ The code is split into 4 main files.
 - Within the assets will be the items that render for the different tokens, and the grid. 
 
 
+## To change the functionality of the code 
+Look into the othello.py initializations to switch from "Player vs AI" to "AI vs AI", or change the depths of the two AI's (Player 1 is Black, Player 2 is White)
+```
+        self.ai_vs_ai = False  # Set this to True for AI vs AI mode
+
+        self.ai1_depth = 5 # Depth for AI Player 1
+        self.ai2_depth = 5  # Depth for AI Player 2
+```
+
 
