@@ -2,6 +2,8 @@
 
 
 ## Installation
+Pygame must be installed in order to run the program, if it is not it will install a version for you
+
 ```
 If on mac: python3 main.py
 If on Windows: py main.py
